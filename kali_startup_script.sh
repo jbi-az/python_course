@@ -15,17 +15,17 @@
 pip install notebook
 echo 'export PATH=$PATH:/home/kali/.local/bin' >> .zshrc  
 wget -q https://raw.githubusercontent.com/ben-ilan/learning_vim/master/vimrc -O .vimrc
-cp -r ~/shared/ssh /.ssh
+sed -i 's/elflord/default/g' .vimrc
+
+cp -r ~/shared/ssh ~/.ssh
 chmod 600 ~/.ssh/id_ed25519 ~/.ssh/az
-chmod 644 ~/.ssh/*
+chmod 644 ~/.ssh/*.pub
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ssh-add ~/.ssh/az
 
 ssh-keyscan -H "github.com" >> ~/.ssh/known_hosts
-mkdir -p ~./vim/pack/abc/start && cd ~/.vim/pack/abc/start
+mkdir -p ~/.vim/pack/abc/start && cd ~/.vim/pack/abc/start
 git clone git@github.com:ben-ilan/snippets_ABC.git
 ln -s .vim/pack/abc/start/snippets_ABC abc 
-git remote set-url git@git-az:ben-ilan/snippets_ABC.git  
-
